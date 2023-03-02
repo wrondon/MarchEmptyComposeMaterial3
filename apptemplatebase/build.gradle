@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.devtools.ksp' version '1.8.10-1.0.9'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.10'
 }
 
 android {
@@ -239,7 +240,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-permissions:0.28.0"
     implementation "com.google.accompanist:accompanist-navigation-animation:0.23.1"
     implementation "com.google.accompanist:accompanist-navigation-material:0.23.1"
-    ////implementation "com.google.accompanist:accompanist-webview:0.23.1"
+    implementation "com.google.accompanist:accompanist-webview:0.28.0"
 
     implementation("io.coil-kt:coil:2.2.2")
     implementation("io.coil-kt:coil-compose:2.2.2")
@@ -249,6 +250,14 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
+
+    implementation 'io.ktor:ktor-client-core:2.2.3'
+    implementation 'io.ktor:ktor-client-cio:2.2.3'
+    implementation 'io.ktor:ktor-client-content-negotiation:2.2.3'
+    implementation 'io.ktor:ktor-serialization-kotlinx-json:2.2.3'
+    implementation 'io.ktor:ktor-serialization-gson:2.2.3'
 
 
 }
