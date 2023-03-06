@@ -15,3 +15,7 @@ dependencyResolutionManagement {
 rootProject.name = "March Empty Compose Material3"
 include ':app'
 include ':apptemplatebase'
+include ':sampleaccompanist'
+include ':samplemaps'
+include ':SampleKotlinlib'
+include ':samplerxjavakotlin'

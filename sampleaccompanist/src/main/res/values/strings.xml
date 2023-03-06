@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SampleAccompanist</string>
+    <string name="title_activity_compose_with_web_view">ComposeActivityWithWebView</string>
+</resources>

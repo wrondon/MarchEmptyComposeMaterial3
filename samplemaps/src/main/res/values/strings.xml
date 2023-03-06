@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SampleMAPS</string>
+    <string name="title_activity_maps">MapsActivity-Sample</string>
+    <string name="title_activity_main_compose_map">MainActivityComposeMap</string>
+</resources>

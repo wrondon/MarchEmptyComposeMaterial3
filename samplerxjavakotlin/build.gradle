@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.marchemptycomposematerial3'
+    namespace 'com.example.samplerxjavakotlin'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.marchemptycomposematerial3"
+        applicationId "com.example.samplerxjavakotlin"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -40,7 +40,6 @@ android {
     }
     buildFeatures {
         compose true
-        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.2'
