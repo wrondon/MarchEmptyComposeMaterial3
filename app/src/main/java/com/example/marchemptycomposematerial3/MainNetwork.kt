@@ -51,7 +51,6 @@ object MainNetworkSourceKtor {
         val response: HttpResponse = client.get("https://api.yelp.com/v3/businesses/search"){
             headers {
                 append(HttpHeaders.Accept, "application/json")
-                append(HttpHeaders.Authorization, "Bearer DV9Ow0NWQbH6_yJW3FAXQvCrH3ehIpmjWKjM8VoZllyijr__96oH_NwhTVW1ZHSFUCUU4W4EEZclqflwokZYtmqnI_ZhKIG-EM0AFFgvwaMv5kb_SwMII3iIf4fmY3Yx")
 
             }
             url {
