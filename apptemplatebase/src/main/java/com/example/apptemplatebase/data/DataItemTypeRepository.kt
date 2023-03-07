@@ -16,20 +16,29 @@
 
 package com.example.apptemplatebase.data
 
+import android.util.Log
+import com.example.apptemplatebase.data.remote.network.NetworkService
+import com.example.apptemplatebase.data.remote.network.Yelp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import com.wrondon.baset.data.local.database.DataItemType
 import com.wrondon.baset.data.local.database.DataItemTypeDao
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 interface DataItemTypeRepository {
     val dataItemTypes: Flow<List<String>>
 
     suspend fun add(name: String)
+
+    suspend fun getYelpSuggestionsFromWeb(term: String, location: String) : Flow<Yelp>
 }
 
 class DefaultDataItemTypeRepository @Inject constructor(
-    private val dataItemTypeDao: DataItemTypeDao
+    private val dataItemTypeDao: DataItemTypeDao,
+    private val networkService: NetworkService
 ) : DataItemTypeRepository {
 
     override val dataItemTypes: Flow<List<String>> =
@@ -38,4 +47,26 @@ class DefaultDataItemTypeRepository @Inject constructor(
     override suspend fun add(name: String) {
         dataItemTypeDao.insertDataItemType(DataItemType(name = name))
     }
+
+    override suspend fun getYelpSuggestionsFromWeb(term: String, location: String)  : Flow<Yelp> {
+        return flow {
+            Log.i("test-02","at repo , asking to search web at network serv")
+            val yelpSugg = networkService.getYelpSuggestionsFromWeb(term=term, location = location)
+            emit(yelpSugg)
+        }
+    }
 }
+
+/*
+suspend fun getComment(id: Int): Flow<CommentApiState<CommentModel>> {
+        return flow {
+
+            // get the comment Data from the api
+            val comment=apiService.getComments(id)
+
+            // Emit this data wrapped in
+            // the helper class [CommentApiState]
+            emit(CommentApiState.success(comment))
+        }.flowOn(Dispatchers.IO)
+    }
+ */

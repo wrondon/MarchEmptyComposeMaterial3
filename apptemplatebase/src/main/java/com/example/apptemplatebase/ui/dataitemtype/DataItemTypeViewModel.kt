@@ -16,11 +16,15 @@
 
 package com.example.apptemplatebase.ui.dataitemtype
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apptemplatebase.data.DataItemTypeRepository
+import com.example.apptemplatebase.data.remote.network.Yelp
 import com.example.apptemplatebase.ui.dataitemtype.DataItemTypeUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -45,6 +49,18 @@ class DataItemTypeViewModel @Inject constructor(
             dataItemTypeRepository.add(name)
         }
     }
+
+    val uiState2API: MutableStateFlow<Yelp> = MutableStateFlow(Yelp())
+
+    fun getYelpSuggestionsFromWeb(term: String, location: String) {
+        Log.i("test-02","at view model , asking to search web at repo")
+        viewModelScope.launch(Dispatchers.IO){
+            dataItemTypeRepository.getYelpSuggestionsFromWeb(term=term, location = location).collect(){
+                uiState2API.value = it
+            }
+        }
+    }
+
 }
 
 sealed interface DataItemTypeUiState {

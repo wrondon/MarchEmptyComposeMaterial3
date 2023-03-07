@@ -18,6 +18,7 @@ package com.example.apptemplatebase.data.di
 
 import com.example.apptemplatebase.data.DataItemTypeRepository
 import com.example.apptemplatebase.data.DefaultDataItemTypeRepository
+import com.example.apptemplatebase.data.remote.network.Yelp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -44,6 +45,11 @@ class FakeDataItemTypeRepository @Inject constructor() : DataItemTypeRepository 
     override suspend fun add(name: String) {
         throw NotImplementedError()
     }
+
+    override suspend fun getYelpSuggestionsFromWeb(term: String, location: String): Flow<Yelp> {
+        TODO("Not yet implemented")
+    }
+
 }
 
 val fakeDataItemTypes = listOf("One", "Two", "Three")
