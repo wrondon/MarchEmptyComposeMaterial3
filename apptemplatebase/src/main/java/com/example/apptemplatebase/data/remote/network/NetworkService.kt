@@ -14,9 +14,7 @@ import javax.inject.Singleton
 
 interface NetworkServiceApi {
 
-@Headers(
-        "Accept: application/json","Authorization: Bearer DV9Ow0NWQbH6_yJW3FAXQvCrH3ehIpmjWKjM8VoZllyijr__96oH_NwhTVW1ZHSFUCUU4W4EEZclqflwokZYtmqnI_ZhKIG-EM0AFFgvwaMv5kb_SwMII3iIf4fmY3Yx"
-    )
+
 @GET("search")
 suspend fun getYelpSuggestions(@Query("limit") limit: String="20",@Query("sort_by") sortby: String="best_match",@Query("location") location: String="tampa", @Query("term") term: String="fitness" ) : Yelp
 

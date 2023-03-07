@@ -46,7 +46,7 @@ fun NewMainScreen(modifier: Modifier = Modifier, viewModel: DataItemTypeViewMode
     Column{
         Text("What are we doing?", Modifier.clickable(){
             Log.i("test-02","clicked in text, asking to search web at view model")
-            val locat = listOf("miami","tampa","new york","san francisco").shuffled().first()
+            val locat = listOf("34688,FL","33133,FL","new york","san francisco").shuffled().first()
             viewModel.getYelpSuggestionsFromWeb("fitness",locat)
         })
         LazyColumn{
