@@ -1,6 +1,5 @@
 package com.example.marchemptycomposematerial3
 
-
 import android.util.Log
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -20,24 +19,16 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
 object MainNetwork {
-    var yelpDataAsFlow : Flow<Yelp> = MainNetworkSourceKtor.yelpDataAsFlow
 
-    suspend fun getYelpUsingKtorClnt(what: String, where: String){
-        MainNetworkSourceKtor.getYelpUsingKtorClnt(what, where)
+    suspend fun getYelpUsingKtorClnt(what: String, where: String) : Yelp {
+        return MainNetworkSourceKtor.getYelpUsingKtorClnt(what, where)
     }
 }
 
 object MainNetworkSourceKtor {
-    private var yelpResponse: Yelp = Yelp()
-    var yelpDataAsFlow : Flow<Yelp> = flow {
-        repeat(300){
-            delay(1000L)
-            Log.i("test-01-netw","at netwokr flow emmision (per seccond) yelpResp : $yelpResponse")
-            emit(yelpResponse)
-        }
-    }
 
-    suspend fun getYelpUsingKtorClnt(what: String="fitness", where: String="tampa"){
+    suspend fun getYelpUsingKtorClnt(what: String="fitness", where: String="tampa") : Yelp {
+
         val client = HttpClient(CIO){
             install(ContentNegotiation) {
                 json(Json {
@@ -51,7 +42,7 @@ object MainNetworkSourceKtor {
         val response: HttpResponse = client.get("https://api.yelp.com/v3/businesses/search"){
             headers {
                 append(HttpHeaders.Accept, "application/json")
-
+                append("Authorization", "Bearer API-KEY")
             }
             url {
                 parameters.append("sort_by", "best_match")
@@ -60,14 +51,24 @@ object MainNetworkSourceKtor {
                 parameters.append("term", what)
             }
         }
-
-        if (response.status.isSuccess()){
-            yelpResponse = response.body()
-            Log.i("test-01-netw","YELp resp using ktor client  (as Yelp object) : (for where:$where & what: $what) \n $yelpResponse")
-            println("test-01-netw >>> YELp resp using ktor client  (as Yelp object) : (for where:$where & what: $what) \n $yelpResponse")
-        }
-
         client.close()
+        return  response.body()
     }
+}
 
+suspend fun main() {
+    var resp = MainNetworkSourceKtor.getYelpUsingKtorClnt("fitness","tampa")
+    resp.businesses.forEach {
+        println(">> ${it.name}")
+    }
+    println("-".repeat(60))
+    resp = MainNetworkSourceKtor.getYelpUsingKtorClnt("fitness","miami")
+    resp.businesses.forEach {
+        println(">> ${it.name}")
+    }
+    println("-".repeat(60))
+    resp = MainNetworkSourceKtor.getYelpUsingKtorClnt("fitness","new york")
+    resp.businesses.forEach {
+        println(">> ${it.name}")
+    }
 }

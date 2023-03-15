@@ -62,7 +62,8 @@ fun MainScreen(viewModel: MainViewModel){
     Column{
         var textWhat by remember { mutableStateOf("fitness") }
         var textWhere by remember { mutableStateOf("tampa") }
-        val onClickRefresh = {viewModel.getYelpUsingKtorClnt(textWhat,textWhere)}
+       //// val onClickRefresh = {viewModel.getYelpUsingKtorClnt(textWhat,textWhere)}
+        val onClickRefresh = viewModel::getYelpUsingKtorClnt
         val uiState = viewModel.uiState.collectAsState(initial = Yelp())
 
         Row(horizontalArrangement = Arrangement.SpaceEvenly){
@@ -82,7 +83,7 @@ fun MainScreen(viewModel: MainViewModel){
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly){
             Button(onClick = {
                 Log.i("test-01-app","clicked on refresh (Ktor-clnt) What: $textWhat  Where: $textWhere")
-                onClickRefresh()
+                onClickRefresh(textWhat,textWhere)
             }) {
                 Text("KtorClnt")
             }
